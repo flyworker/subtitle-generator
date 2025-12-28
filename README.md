@@ -68,7 +68,11 @@ pip install -r requirements.txt
 Generate translated subtitles from a video (default: Japanese → Chinese):
 
 ```bash
+# Using default NLLB model
 python main.py /path/to/your/video.mp4
+
+# Using recommended GGUF model (best quality and performance)
+python main.py /path/to/your/video.mp4 --translation-model qwen3-gguf-q5ks
 ```
 
 This will create a file named `video.zh.srt` in the same directory as your video.
@@ -145,6 +149,9 @@ python main.py video.mp4 -s ja -t zh --translation-model huihui_ai/qwen2.5-vl-ab
 
 # Use newer Ollama model
 python main.py video.mp4 -s ja -t zh --translation-model huihui_ai/qwen3-abliterated:8b-v2
+
+# Use GGUF model (recommended - best quality and performance)
+python main.py video.mp4 -s ja -t zh --translation-model qwen3-gguf-q5ks
 ```
 
 ### Available Whisper Models
@@ -166,21 +173,22 @@ python main.py video.mp4 -s ja -t zh --translation-model huihui_ai/qwen3-abliter
 - `huihui-ai/Qwen2.5-7B-Instruct-abliterated-v2` - Highest quality, full precision (~14GB VRAM, direct from HuggingFace)
 - `Qwen/Qwen2.5-7B-Instruct` - High quality, general purpose (~14GB VRAM)
 
-**Ollama Models (Recommended for most users - Requires Ollama v0.12.7+, supports many languages):**
+**HuggingFace GGUF Models (Quantized - Best Performance - RECOMMENDED):**
+- `qwen3-gguf-q5ks` - **⭐ Recommended** - Q5_K_S quantization (5.7GB), imatrix optimized for highest quality. Already installed and ready to use! Best balance of quality and speed.
+
+**Ollama Models (Alternative - Requires Ollama v0.12.7+, supports many languages):**
 - `huihui_ai/qwen3-abliterated:8b-v2` - High quality, optimized for translation (~5GB with Ollama)
 - `huihui_ai/qwen2.5-vl-abliterated:7b` - High quality, optimized for translation (~7GB with Ollama)
 - `huihui_ai/qwen3-vl-abliterated:8b-instruct` - High quality, optimized for translation (~8GB with Ollama)
 - `qwen2.5:7b-instruct` - High quality, general purpose (~7GB with Ollama)
-
-**HuggingFace GGUF Models (Quantized - Best Performance):**
-- `mradermacher/Huihui-Qwen3-8B-abliterated-v2-i1-GGUF` - **Recommended** - Multiple quantization levels (2.2-6.8GB), optimized imatrix quants for better quality. See [model page](https://huggingface.co/mradermacher/Huihui-Qwen3-8B-abliterated-v2-i1-GGUF) for available quantizations. 
-  - **Installed**: `qwen3-gguf-q5ks` (Q5_K_S, 5.7GB) - High quality, good speed
-  - Recommended alternatives: `Q4_K_S` (4.8GB) or `Q4_K_M` (5.1GB) for best speed/quality balance
+- `mradermacher/Huihui-Qwen3-8B-abliterated-v2-i1-GGUF` - Source repository with multiple quantization levels (2.2-6.8GB). See [model page](https://huggingface.co/mradermacher/Huihui-Qwen3-8B-abliterated-v2-i1-GGUF) for other quantizations.
+  - Alternative quantizations: `Q4_K_S` (4.8GB) or `Q4_K_M` (5.1GB) for best speed/quality balance
 
 **Note**: 
+- **GGUF models** (like `qwen3-gguf-q5ks`) are the **recommended** option - best quality and performance. Already installed and ready to use!
 - **HuggingFace models** (like `huihui-ai/Qwen2.5-7B-Instruct-abliterated-v2`) are loaded directly - no setup needed, just use the model name.
 - **Ollama models** use format `namespace/model:tag`. To use an Ollama model, ensure Ollama v0.12.7+ is installed and the model is pulled.
-- **📊 See [MODEL_COMPARISON.md](MODEL_COMPARISON.md) for detailed comparison between Ollama and HuggingFace models.**
+- **📊 See [MODEL_COMPARISON.md](MODEL_COMPARISON.md) for detailed comparison between models.**
 ```bash
 # Install/update Ollama to v0.12.7+
 curl -fsSL https://ollama.com/install.sh | sh
@@ -200,10 +208,10 @@ ollama create qwen3-gguf -f Modelfile
 # SYSTEM "You are a professional translator."
 
 # Then use it directly
-python main.py video.mp4 -m huihui_ai/qwen3-abliterated:8b-v2
+python main.py video.mp4 --translation-model huihui_ai/qwen3-abliterated:8b-v2
 
-# Or use the installed GGUF model (Q5_K_S quantization, 5.7GB):
-python main.py video.mp4 -m qwen3-gguf-q5ks
+# Or use the installed GGUF model (Q5_K_S quantization, 5.7GB) - RECOMMENDED:
+python main.py video.mp4 --translation-model qwen3-gguf-q5ks
 ```
 
 ### Benchmarking Model Speed
@@ -263,7 +271,8 @@ subtittle/
 ## Performance Notes
 
 With your RTX 3070 (8GB VRAM):
-- **Recommended**: `medium` Whisper + `1.3B` NLLB (~60-90 min for a 2-hour movie)
+- **Recommended**: `medium` Whisper + `qwen3-gguf-q5ks` (~40-60 min for a 2-hour movie, best quality)
+- **Alternative**: `medium` Whisper + `1.3B` NLLB (~60-90 min for a 2-hour movie)
 - **High Quality**: `large` Whisper + `3.3B` NLLB (~90-120 min for a 2-hour movie)
 - **Fast**: `medium` Whisper + `600M` NLLB (~30-60 min for a 2-hour movie)
 
