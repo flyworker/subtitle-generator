@@ -164,7 +164,7 @@ python main.py video.mp4 -s ja -t zh --translation-model qwen3-gguf-q5ks
 
 ### Available Translation Models
 
-**NLLB Models (Recommended - Direct Loading, supports 200+ languages):**
+**NLLB Models (Direct Loading, supports 200+ languages):**
 - `facebook/nllb-200-3.3B` - **Default** - Best quality (~13GB VRAM)
 - `facebook/nllb-200-1.3B` - Good quality, faster (~5GB VRAM)
 - `facebook/nllb-200-distilled-600M` - Fastest, good quality (~2.5GB)
@@ -175,20 +175,24 @@ python main.py video.mp4 -s ja -t zh --translation-model qwen3-gguf-q5ks
 
 **HuggingFace GGUF Models (Quantized - Best Performance - RECOMMENDED):**
 - `qwen3-gguf-q5ks` - **⭐ Recommended** - Q5_K_S quantization (5.7GB), imatrix optimized for highest quality. Already installed and ready to use! Best balance of quality and speed.
+- Source repository: [mradermacher/Huihui-Qwen3-8B-abliterated-v2-i1-GGUF](https://huggingface.co/mradermacher/Huihui-Qwen3-8B-abliterated-v2-i1-GGUF) - Multiple quantization levels (2.2-6.8GB)
+  - Alternative quantizations: `Q4_K_S` (4.8GB) or `Q4_K_M` (5.1GB) for best speed/quality balance
+  - See [GGUF_SETUP.md](GGUF_SETUP.md) for detailed setup instructions
 
 **Ollama Models (Alternative - Requires Ollama v0.12.7+, supports many languages):**
 - `huihui_ai/qwen3-abliterated:8b-v2` - High quality, optimized for translation (~5GB with Ollama)
 - `huihui_ai/qwen2.5-vl-abliterated:7b` - High quality, optimized for translation (~7GB with Ollama)
 - `huihui_ai/qwen3-vl-abliterated:8b-instruct` - High quality, optimized for translation (~8GB with Ollama)
 - `qwen2.5:7b-instruct` - High quality, general purpose (~7GB with Ollama)
-- `mradermacher/Huihui-Qwen3-8B-abliterated-v2-i1-GGUF` - Source repository with multiple quantization levels (2.2-6.8GB). See [model page](https://huggingface.co/mradermacher/Huihui-Qwen3-8B-abliterated-v2-i1-GGUF) for other quantizations.
-  - Alternative quantizations: `Q4_K_S` (4.8GB) or `Q4_K_M` (5.1GB) for best speed/quality balance
 
 **Note**: 
 - **GGUF models** (like `qwen3-gguf-q5ks`) are the **recommended** option - best quality and performance. Already installed and ready to use!
 - **HuggingFace models** (like `huihui-ai/Qwen2.5-7B-Instruct-abliterated-v2`) are loaded directly - no setup needed, just use the model name.
 - **Ollama models** use format `namespace/model:tag`. To use an Ollama model, ensure Ollama v0.12.7+ is installed and the model is pulled.
 - **📊 See [MODEL_COMPARISON.md](MODEL_COMPARISON.md) for detailed comparison between models.**
+
+### Setting Up Models
+
 ```bash
 # Install/update Ollama to v0.12.7+
 curl -fsSL https://ollama.com/install.sh | sh
@@ -224,7 +228,6 @@ python3 benchmark_speed.py
 ```
 
 This will test both models with the same subtitle segments and show detailed performance metrics.
-```
 
 ## Using Subtitles in VLC Player
 
