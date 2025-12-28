@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Model cache
+.cache/
+models/
+
+# Video files
+*.mp4
+*.avi
+*.mkv
+*.mov
+*.wmv
+*.flv
+
+# Subtitle files
+*.srt
+*.vtt
+*.ass
+
+# Temporary transcription cache files
+*.transcription.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+check_status.sh

@@ -1,0 +1,6 @@
+FROM ./models/Huihui-Qwen3-8B-abliterated-v2.i1-Q5_K_S.gguf
+TEMPLATE """{{ .System }}{{ .Prompt }}"""
+SYSTEM "You are a professional translator. Translate text accurately and naturally."
+PARAMETER temperature 0.05
+PARAMETER top_p 0.9
+PARAMETER repeat_penalty 1.1
