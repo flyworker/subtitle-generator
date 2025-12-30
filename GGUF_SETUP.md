@@ -130,3 +130,5 @@ translator = SubtitleTranslator(
 - Try downloading manually from HuggingFace web interface
 - Use `huggingface-cli login` if authentication is required
 
+
+
